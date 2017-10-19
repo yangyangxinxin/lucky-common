@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%thread] [%-5level] [%logger:%line] %msg%n</Pattern>
+        </encoder>>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/webapps/junziqian-web/junziqian-web.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/var/log/webapps/junziqian-web/junziqian-web.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%thread] [%-5level] [%logger:%line] %msg%n</Pattern>
+        </encoder>>
+    </appender>
+    <appender name="STORAGE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/webapps/junziqian-web/junziqian-storage.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/var/log/webapps/junziqian-web/junziqian-storage.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%thread] [%-5level] [%logger:%line] %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <appender name="JMSLOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>/var/log/webapps/junziqian-web/junziqian-jms.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>/var/log/webapps/junziqian-web/junziqian-jms.log.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>[%date{yyyy-MM-dd HH:mm:ss}] [%thread] [%-5level] [%logger:%line] %msg%n</Pattern>
+        </encoder>
+    </appender>
+    <logger name="org.mapu.themis.storage" level="INFO" additivity="false">
+        <appender-ref ref="STORAGE" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="com.junziqian.core.events.listener" level="INFO" additivity="false">
+        <appender-ref ref="JMSLOG" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
